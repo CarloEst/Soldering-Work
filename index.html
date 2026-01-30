@@ -111,39 +111,41 @@
     }
 
     .hero{
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: #f3f3f3;
-    }
-    .hero img{
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #f3f3f3;
+  /* forces a nice “hero” shape */
+  aspect-ratio: 16 / 10;
+}
 
-    .thumbs{
-      display: grid;
-      gap: 12px;
-      grid-template-columns: 1fr 1fr;
-      align-content: start;
-    }
+.hero img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* centers the crop */
+  display: block;
+}
 
-    .thumb{
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: #f3f3f3;
-      aspect-ratio: 1 / 1;
-      display: grid;
-      place-items: center;
-    }
-    .thumb img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+/* Thumbnails */
+.thumb{
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #f3f3f3;
+
+  /* better for portrait shots than 1:1 */
+  aspect-ratio: 4 / 5;
+  display: block;
+}
+
+.thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* centers the crop */
+  display: block;
+}
 
     /* Description container */
     .desc{
