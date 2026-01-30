@@ -115,37 +115,44 @@
       overflow: hidden;
       border: 1px solid var(--border);
       background: #f3f3f3;
-      /* forces a nice “hero” shape */
+
+      /* makes the hero a consistent banner shape */
       aspect-ratio: 16 / 10;
     }
-
     .hero img{
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center; /* centers the crop */
+      object-fit: cover;        /* fill the hero container */
+      object-position: center;  /* keep centered */
       display: block;
     }
 
-    /* Thumbnails */
+    .thumbs{
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      align-content: start;
+    }
+
+    /* Apply to ALL thumbnail tiles */
     .thumb{
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border);
       background: #f3f3f3;
 
-      /* better for portrait shots than 1:1 */
+      /* better for portrait-ish images than 1:1 */
       aspect-ratio: 4 / 5;
-      display: block;
+      display: block; /* no need for grid centering now */
     }
-
     .thumb img{
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center; /* centers the crop */
+      object-position: center;
       display: block;
     }
+
 
     /* Description container */
     .desc{
