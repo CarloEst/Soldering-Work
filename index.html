@@ -104,9 +104,19 @@
     }
 
     /* Responsive layout: 2 columns on wider screens */
-    @media (min-width: 760px){
+      @media (min-width: 760px){
       .grid{
-        grid-template-columns: 1.2fr 1fr;
+        grid-template-columns: 1fr 1fr; /* thumbs grid uses this width nicely */
+      }
+
+      /* HERO goes across the full width */
+      .hero{
+        grid-column: 1 / -1;
+      }
+
+      /* THUMBS also go across full width under the hero */
+      .thumbs{
+        grid-column: 1 / -1;
       }
     }
 
