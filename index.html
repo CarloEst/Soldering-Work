@@ -19,6 +19,7 @@
       --border: rgba(0,0,0,0.08);
       --shadow: 0 10px 30px rgba(0,0,0,0.06);
       --radius: 18px;
+      --focus: rgba(17,17,17,0.12);
     }
 
     * { box-sizing: border-box; }
@@ -42,18 +43,183 @@
     .header-inner{
       max-width: 980px;
       margin: 0 auto;
-      padding: 16px 18px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
+      gap: 14px;
     }
     .name{
-      font-family: "Allura", cursive; /* fallback is cursive */
+      font-family: "Allura", cursive;
       font-size: 34px;
       letter-spacing: 0.2px;
       line-height: 1;
       margin: 0;
       user-select: none;
+      white-space: nowrap;
+    }
+
+    /* --- NAV --- */
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav a{
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nav-link{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+    .nav-link:hover{
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .nav-link:focus-visible,
+    .menu-btn:focus-visible,
+    .dropdown-btn:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 4px var(--focus);
+    }
+
+    /* Dropdown (desktop) */
+    .dropdown{
+      position: relative;
+      display: none; /* enabled on desktop via media query */
+    }
+    .dropdown-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+    .dropdown-btn:hover{
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .chev{
+      width: 14px;
+      height: 14px;
+      opacity: 0.8;
+    }
+
+    .dropdown-menu{
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      min-width: 220px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 8px;
+      display: none;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{
+      display: block;
+    }
+    .dropdown-item{
+      display: block;
+      padding: 10px 10px;
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .dropdown-item:hover{
+      background: rgba(0,0,0,0.03);
+    }
+    .dropdown-meta{
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* Hamburger + mobile sheet */
+    .menu-btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+    }
+    .menu-icon{
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    .mobile-menu{
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 50;
+    }
+    .mobile-menu[aria-hidden="false"]{
+      display: block;
+    }
+    .mobile-overlay{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(2px);
+    }
+    .mobile-sheet{
+      position: absolute;
+      right: 14px;
+      top: 70px;
+      width: min(92vw, 360px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      overflow: hidden;
+    }
+    .mobile-title{
+      padding: 10px 10px 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .mobile-list{
+      display: grid;
+      gap: 6px;
+      padding: 0 6px 10px;
+    }
+    .mobile-item{
+      display: block;
+      padding: 10px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .mobile-item:hover{
+      background: rgba(0,0,0,0.03);
     }
 
     /* Page layout */
@@ -105,9 +271,9 @@
 
     /* Responsive layout: 2 columns on wider screens */
     @media (min-width: 760px){
-      .grid{
-        grid-template-columns: 1.2fr 1fr;
-      }
+      .grid{ grid-template-columns: 1.2fr 1fr; }
+      .dropdown{ display: inline-block; }
+      .menu-btn{ display: none; }
     }
 
     .hero{
@@ -115,15 +281,13 @@
       overflow: hidden;
       border: 1px solid var(--border);
       background: #f3f3f3;
-
-      /* makes the hero a consistent banner shape */
       aspect-ratio: 16 / 10;
     }
     .hero img{
       width: 100%;
       height: 100%;
-      object-fit: cover;        /* fill the hero container */
-      object-position: center;  /* keep centered */
+      object-fit: cover;
+      object-position: center;
       display: block;
     }
 
@@ -134,16 +298,13 @@
       align-content: start;
     }
 
-    /* Apply to ALL thumbnail tiles */
     .thumb{
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border);
       background: #f3f3f3;
-
-      /* better for portrait-ish images than 1:1 */
       aspect-ratio: 4 / 5;
-      display: block; /* no need for grid centering now */
+      display: block;
     }
     .thumb img{
       width: 100%;
@@ -152,7 +313,6 @@
       object-position: center;
       display: block;
     }
-
 
     /* Description container */
     .desc{
@@ -174,7 +334,6 @@
       margin-top: 2px;
     }
 
-    /* Small footer note (optional) */
     footer{
       max-width: 980px;
       margin: 0 auto;
@@ -190,8 +349,60 @@
   <header>
     <div class="header-inner">
       <h1 class="name">Olivier Estime</h1>
+
+      <!-- NAV -->
+      <nav class="nav" aria-label="Site">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <!-- Desktop dropdown -->
+        <div class="dropdown">
+          <button class="dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
+            Projects
+            <svg class="chev" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="dropdown-menu" role="menu" aria-label="Projects">
+            <!-- EDIT THESE LINKS FOR YOUR REAL PAGES -->
+            <a class="dropdown-item" href="soldering.html" role="menuitem">
+              Soldering Sculpture
+              <span class="dropdown-meta">Creative Embedded Systems</span>
+            </a>
+            <a class="dropdown-item" href="project-555timer.html" role="menuitem">
+              555 Timer Project
+              <span class="dropdown-meta">Creative Embedded Systems</span>
+            </a>
+            <a class="dropdown-item" href="project-xyz.html" role="menuitem">
+              Another Project
+              <span class="dropdown-meta">Spring 2026</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+          <svg class="menu-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 6h12M4 10h12M4 14h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </nav>
     </div>
   </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-overlay" id="overlay"></div>
+    <div class="mobile-sheet" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="mobile-title">Menu</div>
+      <div class="mobile-list">
+        <a class="mobile-item" href="index.html">Home</a>
+        <a class="mobile-item" href="soldering.html">Soldering Sculpture</a>
+        <a class="mobile-item" href="project-555timer.html">555 Timer Project</a>
+        <a class="mobile-item" href="project-xyz.html">Another Project</a>
+      </div>
+    </div>
+  </div>
 
   <main>
     <!-- IMAGES CONTAINER -->
@@ -204,7 +415,6 @@
       <div class="grid">
         <!-- HERO IMAGE -->
         <div class="hero">
-          <!-- Put your best full-shot photo here -->
           <img src="assets/pic1.jpg" alt="Hero image of the build" />
         </div>
 
@@ -235,7 +445,7 @@
       <p>
         This build tells a story of pushing through towards our goal even when things don't go as planned.
         When I started this scuplture, I wanted to build a well designed pyramid, but instead I ended with this non symmetrical
-        sculpture that looks like one. Every imperfection in the sculpture, like the rounded corners, the uneven lengths are 
+        sculpture that looks like one. Every imperfection in the sculpture, like the rounded corners, the uneven lengths are
         representations of roadblocks, but when we zoom out, we see a unique and pretty sculpture. I think it's a reminder that
         we shouldn't dwell over the little problems in the path towards our goals, and we should always look at the bigger picture,
         as these imperfections are what make our path unique.
@@ -246,5 +456,43 @@
   <footer>
     <span></span>
   </footer>
+
+  <script>
+    (function(){
+      const btn = document.getElementById("menuBtn");
+      const menu = document.getElementById("mobileMenu");
+      const overlay = document.getElementById("overlay");
+
+      function openMenu(){
+        menu.setAttribute("aria-hidden", "false");
+        btn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMenu(){
+        menu.setAttribute("aria-hidden", "true");
+        btn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      btn?.addEventListener("click", () => {
+        const isOpen = menu.getAttribute("aria-hidden") === "false";
+        if (isOpen) closeMenu();
+        else openMenu();
+      });
+
+      overlay?.addEventListener("click", closeMenu);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
+
+      // Close menu after clicking a link (mobile)
+      menu?.addEventListener("click", (e) => {
+        const target = e.target;
+        if (target && target.tagName === "A") closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
