@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>README</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css" integrity="sha512-yqzI+g6lUAAEXIZpBFV9TS1afxiulv7w7Yiqfsb+VavcXWtvEqmA12J3ySCEUMFaKRqU1sffqHVO9HjRdBOiIw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f6f8fa;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #57606a;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      color: #0969da;
+    }
+    .markdown-body {
+      box-sizing: border-box;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .markdown-body img {
+      max-width: 480px;
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      margin: 12px 0;
+    }
+    @media (max-width: 600px) {
+      .markdown-body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a class="back-link" id="backLink" href="#">← Back to project</a>
+    <article id="content" class="markdown-body">
+      <p><em>Loading README…</em></p>
+    </article>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    // Map ?project= values to their markdown file and back-link
+    var PROJECTS = {
+      esp32: {
+        md: 'ESP32-README.md',
+        back: 'esp32-genart.html',
+        backLabel: '← Back to ESP32 Generative Art'
+      },
+      panda: {
+        md: 'panda-README.md',
+        back: 'panda_interactive.html',
+        backLabel: '← Back to Interactive Panda'
+      }
+    };
+
+    var params  = new URLSearchParams(window.location.search);
+    var key     = (params.get('project') || '').toLowerCase();
+    var project = PROJECTS[key];
+
+    if (!project) {
+      document.getElementById('content').innerHTML =
+        '<p><strong>Unknown project.</strong> Add <code>?project=esp32</code> or <code>?project=panda</code> to the URL.</p>';
+    } else {
+      // Update page title and back link
+      document.title = project.backLabel.replace('← Back to ', '') + ' — README';
+      var backEl = document.getElementById('backLink');
+      backEl.href  = project.back;
+      backEl.textContent = project.backLabel;
+
+      // Fetch and render the markdown
+      fetch(project.md)
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.text();
+        })
+        .then(function (md) {
+          document.getElementById('content').innerHTML = marked.parse(md);
+        })
+        .catch(function (err) {
+          document.getElementById('content').innerHTML =
+            '<p><strong>Failed to load README.</strong></p><pre>' + String(err) + '</pre>';
+        });
+    }
+  </script>
+</body>
+</html>
