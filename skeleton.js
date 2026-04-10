@@ -3,12 +3,16 @@
  * Edit NAV_PROJECTS below to change menu links everywhere.
  */
 (function () {
+  // Detect if this page lives inside a subdirectory (e.g. projects/)
+  // and prefix all root-relative links accordingly.
+  var base = window.location.pathname.indexOf('/projects/') !== -1 ? '../' : '';
+
   // ——— EDIT THIS: project links for dropdown + mobile menu ———
   var NAV_PROJECTS = [
-    { href: 'index.html', title: 'Soldering Sculpture', meta: 'Creative Embedded Systems' },
-    { href: 'PCB_555Timer.html', title: '555 Timer Project', meta: 'Creative Embedded Systems' },
-    { href: 'esp32-genart.html', title: 'ESP32 Generative Art', meta: 'Creative Embedded Systems' },
-    { href: 'panda_interactive.html', title: 'Interactive Panda', meta: 'Creative Embedded Systems' }
+    { href: base + 'index.html', title: 'Soldering Sculpture', meta: 'Creative Embedded Systems' },
+    { href: base + 'projects/PCB_555Timer.html', title: '555 Timer Project', meta: 'Creative Embedded Systems' },
+    { href: base + 'projects/esp32-genart.html', title: 'ESP32 Generative Art', meta: 'Creative Embedded Systems' },
+    { href: base + 'projects/panda_interactive.html', title: 'Interactive Panda', meta: 'Creative Embedded Systems' }
   ];
 
   var dropdownItems = NAV_PROJECTS.map(function (p) {
@@ -25,12 +29,12 @@
 
   var link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = 'skeleton.css';
+  link.href = base + 'skeleton.css';
   document.head.appendChild(link);
 
   document.body.innerHTML =
     '<header><div class="header-inner"><h1 class="name">Olivier Estime</h1>' +
-    '<nav class="nav" aria-label="Site"><a class="nav-link" href="index.html">Home</a>' +
+    '<nav class="nav" aria-label="Site"><a class="nav-link" href="' + base + 'index.html">Home</a>' +
     '<div class="dropdown"><button class="dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">Projects' +
     '<svg class="chev" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
     '<div class="dropdown-menu" role="menu" aria-label="Projects">' + dropdownItems + '</div></div>' +
@@ -38,7 +42,7 @@
     '<svg class="menu-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 6h12M4 10h12M4 14h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></nav></div></header>' +
     '<div class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-overlay" id="overlay"></div>' +
     '<div class="mobile-sheet" role="dialog" aria-modal="true" aria-label="Menu"><div class="mobile-title">Menu</div><div class="mobile-list">' +
-    '<a class="mobile-item" href="index.html">Home</a>' + mobileItems + '</div></div></div>' +
+    '<a class="mobile-item" href="' + base + 'index.html">Home</a>' + mobileItems + '</div></div></div>' +
     '<main>' + mainHTML + '</main>' +
     '<footer><span></span></footer>';
 
