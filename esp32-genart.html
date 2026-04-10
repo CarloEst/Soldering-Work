@@ -7,6 +7,59 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <style>
+    .esp-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .esp-hero {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f3f3f3;
+      aspect-ratio: 16 / 9;
+      max-width: 70%;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .esp-hero video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .esp-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .esp-thumb {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f3f3f3;
+      aspect-ratio: 1 / 1;
+    }
+
+    .esp-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    @media (max-width: 500px) {
+      .esp-hero {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="page-content">
@@ -15,18 +68,18 @@
         <h2 class="project-title">ESP32 Generative Art</h2>
         <p class="project-sub">Creative Embedded Systems - Spring 2026</p>
       </div>
-      <div class="grid">
-        <div class="hero">
-            <video controls playsinline preload="metadata" poster="assets/3pic2.jpg">
-                <source src="assets/3vid.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+      <div class="esp-grid">
+        <div class="esp-hero">
+          <video controls playsinline preload="metadata" poster="assets/3pic2.jpg">
+            <source src="assets/3vid.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
-        <div class="thumbs">
-          <div class="thumb"><img src="assets/3pic1.jpg" alt="Detail 1" /></div>
-          <div class="thumb"><img src="assets/3pic2.jpg" alt="Detail 2" /></div>
-          <div class="thumb"><img src="assets/3pic3.jpg" alt="Angle 1" /></div>
-          <div class="thumb"><img src="assets/3pic4.jpg" alt="Angle 2" /></div>
+        <div class="esp-thumbs">
+          <div class="esp-thumb"><img src="assets/3pic1.jpg" alt="Detail 1" /></div>
+          <div class="esp-thumb"><img src="assets/3pic2.jpg" alt="Detail 2" /></div>
+          <div class="esp-thumb"><img src="assets/3pic3.jpg" alt="Angle 1" /></div>
+          <div class="esp-thumb"><img src="assets/3pic4.jpg" alt="Angle 2" /></div>
         </div>
       </div>
     </section>
@@ -42,8 +95,8 @@
         The art in the background is a reflection of the lyrics, as it shows the landscapes, the sea, the mountains and the tropical sunsets that Haiti is known for.
         We also have shooting stars to give this sense of magic and wonder that the lyrics evoke.</br>
         </br>
-        <a class="repo" href="ESP32-README.md" target="_blank" rel="noopener noreferrer">
-          View Github README →
+        <a class="repo" href="esp32-readme.html" target="_blank" rel="noopener noreferrer">
+          View GitHub-style README →
         </a>
       </p>
     </section>

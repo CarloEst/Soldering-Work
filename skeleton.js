@@ -7,7 +7,8 @@
   var NAV_PROJECTS = [
     { href: 'index.html', title: 'Soldering Sculpture', meta: 'Creative Embedded Systems' },
     { href: 'PCB_555Timer.html', title: '555 Timer Project', meta: 'Creative Embedded Systems' },
-    { href: 'esp32-genart.html', title: 'ESP32 Generative Art', meta: 'Creative Embedded Systems' }
+    { href: 'esp32-genart.html', title: 'ESP32 Generative Art', meta: 'Creative Embedded Systems' },
+    { href: 'panda_interactive.html', title: 'Interactive Panda', meta: 'Creative Embedded Systems' }
   ];
 
   var dropdownItems = NAV_PROJECTS.map(function (p) {

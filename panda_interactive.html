@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Panda — Olivier Estime</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <style>
+    /* Panda-page: video row + images row, each independent */
+    .panda-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .panda-hero {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f3f3f3;
+      aspect-ratio: 16 / 9;
+      max-width: 70%;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .panda-hero video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .panda-thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .panda-thumb {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f3f3f3;
+      aspect-ratio: 1 / 1;
+    }
+
+    .panda-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    @media (max-width: 500px) {
+      .panda-hero {
+        max-width: 100%;
+      }
+      .panda-thumbs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="page-content">
+    <section class="card gallery">
+      <div class="gallery-top">
+        <h2 class="project-title">Interactive Panda</h2>
+        <p class="project-sub">Creative Embedded Systems - Spring 2026</p>
+      </div>
+      <div class="panda-grid">
+        <div class="panda-hero">
+          <video controls playsinline preload="metadata">
+            <source src="assets/panda/video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="panda-thumbs">
+          <div class="panda-thumb"><img src="assets/panda/panda1.jpg" alt="Panda photo 1" /></div>
+          <div class="panda-thumb"><img src="assets/panda/panda2.jpg" alt="Panda photo 2" /></div>
+          <div class="panda-thumb"><img src="assets/panda/panda3.jpg" alt="Panda photo 3" /></div>
+          <div class="panda-thumb"><img src="assets/panda/panda4.jpg" alt="Panda photo 4" /></div>
+          <div class="panda-thumb"><img src="assets/panda/panda5.jpg" alt="Panda photo 5" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card desc">
+      <h2>Short Description</h2>
+      <p class="muted">An interactive panda built with creative embedded systems.</p>
+      <h2 style="margin-top:16px;">Reflection</h2>
+      <p>
+        <!-- Add your reflection here -->
+         In this project, the goal was to create an interactive panda that would move and interact with the user using an ESP32.
+         I wanted to have a stealth approach where the components and wires would be hidden inside the panda, but that was proven hard to do.
+         Instead, I opted for approach where the wires and the copper tape would be part of the aesthetic of the panda.
+         I plaed the copper tape in ways that present an augmented reality effect, and I decided to have the wires go through the panda'
+        back side to give to give this idea of an exoskeleton that augment the panda's natural movement.
+         
+        <br />
+        <a class="repo" href="https://github.com/CarloEst/Interactive-Panda-ESP32---Creative-Embedded-Systems/tree/main" target="_blank" rel="noopener noreferrer">
+          View on GitHub →
+        </a>
+      </p>
+    </section>
+  </div>
+  <script src="skeleton.js"></script>
+</body>
+</html>
